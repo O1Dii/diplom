@@ -1,0 +1,11 @@
+.venv
+.idea
+*.env
+.gitignore
+docker-compose.yml
+.git
+infrastructure
+junk
+node_modules
+app/static/dist
+docker_log

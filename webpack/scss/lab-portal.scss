@@ -1,0 +1,22 @@
+@import "~@blueprintjs/core";
+@import "colors", "variables";
+@import "~@blueprintjs/core/src/blueprint.scss";
+
+#grid-spacer-row {
+  padding-top: 20px;
+  max-width: 100%;
+}
+
+#app-tabs-row {
+  border-bottom: 1px solid #e1e1e1;
+}
+
+select[intent="danger"] {
+  border: 1px solid red;
+}
+
+:focus {
+  outline-color: $color-primary-1;
+}
+
+@import "components";

@@ -1,0 +1,41 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+flask = "==1.1.2"
+Flask-Migrate = "*"
+Flask-SQLAlchemy = "*"
+sqlalchemy = "*"
+psycopg2 = "*"
+python-dotenv = "*"
+requests-oauthlib = "==1.1.0"
+flask-oauthlib = "*"
+oauthlib = "==2.1.0"
+redis = "*"
+werkzeug = "==0.16.0"
+boto3 = "*"
+boto3-type-annotations-with-docs = "*"
+pytest = "*"
+numpy = "*"
+pandas = "*"
+pytest-mock = "*"
+pytest-flask = "*"
+pytest-cov = "*"
+jsonschema = "*"
+flask-session = {git = "https://github.com/richwandell/flask-session.git@a417b5948fee4f51ea06627319234c0390bccc33"}
+flask-graphql = "*"
+graphene = "*"
+graphene-sqlalchemy = "*"
+interop = "*"
+openpyxl = "*"
+Backbone = {git = "https://gitlab+deploy-token-183006:X_oUF4HxBA61kDBHLg4y@gitlab.com/genomic-prediction/gp/backbone.git@252ff82108369276d3c1c53ecafd92a71a1831e9"}
+validate_email = "*"
+flask-inputs = "*"
+arrow = "*"
+
+[requires]
+python_version = "3.7"

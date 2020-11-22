@@ -1,0 +1,161 @@
+//Menu Items
+$menu_items: 12;
+$rotation: 360/$menu_items; //360deg / total number of items
+$offset: 15; //offset it slightly to line up the keys
+//colors
+$color_emerald_approx: #52be7f;
+$white: #fff;
+$black_5: rgba(0, 0, 0, 0.05);
+$color_chateau_green_approx: #429a67; //Key bg
+$color_desert_storm_approx: #f8f8f8;
+$color_cosmic_approx: #6f325c;
+$baby_blue: #3BB1F5;
+$active_color: #E94545;
+$hover_color: #FF3E3E;
+$purple: #AC68F8;
+//fonts
+$font_0: Lato;
+$font_1: Arial;
+$font_2: sans-serif;
+* {
+  position: relative;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background: #000;
+  color: $white;
+}
+
+.component {
+  position: relative;
+  margin-bottom: 3em;
+  height: 15em;
+  background: $black_5;
+  font-family: $font_0, $font_1, $font_2;
+  > h2 {
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 12em;
+    opacity: 0.1;
+    cursor: default;
+  }
+}
+
+.cn-wrapper {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 10;
+  margin-top: -13em;
+  margin-left: -13.5em;
+  width: 27em;
+  height: 27em;
+  border-radius: 50%;
+  background: transparent;
+  opacity: 0;
+  transition: all .3s ease 0.3s;
+  transform: scale(0.1);
+  pointer-events: none;
+  overflow: hidden;
+  #keys {
+    &.major {
+      .key.active a {
+        background: radial-gradient(transparent 20%, $active_color 50%);
+      }
+    }
+    &.minor {
+      .key.active a {
+        background: radial-gradient(transparent 20%, $baby_blue 50%);
+      }
+    }
+  }
+  li {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    overflow: hidden;
+    margin-top: -1.3em;
+    margin-left: -10em;
+    width: 10em;
+    height: 10em;
+    font-size: 1.5em;
+    transition: all .3s ease;
+    transform: rotate(76deg) skew(60deg);
+    transform-origin: 100% 100%;
+    pointer-events: none;
+    &.flat {
+      span:after {
+        content: "\266D";
+      }
+    }
+    &.sharp {
+      span:after {
+        content: "\266F";
+      }
+    }
+    span {
+      position: relative;
+      top: 2.2em;
+      display: block;
+      font-size: .6em;
+      font-weight: 700;
+    }
+    a {
+      position: absolute;
+      right: -7.25em;
+      bottom: -7.25em;
+      display: block;
+      width: 14.5em;
+      height: 14.5em;
+      border-radius: 50%;
+      background: $color_chateau_green_approx;
+      background: radial-gradient(transparent 68%, $color_chateau_green_approx 32%);
+      color: $white;
+      border: 2px solid $color_chateau_green_approx;
+      box-shadow: 2px 0 30px 0 $color_chateau_green_approx;
+      text-align: center;
+      text-decoration: none;
+      font-size: 1.2em;
+      line-height: 2;
+      transform: skew(-60deg) rotate(-75deg) scale(1);
+      backface-visibility: hidden;
+      pointer-events: auto;
+      &:hover {
+        background: radial-gradient(transparent 20%, $color_emerald_approx 50%);
+      }
+      &.active {
+        background: radial-gradient(transparent 35%, $active_color 35%);
+      }
+    }
+  }
+}
+
+.opened-nav {
+  border-radius: 50%;
+  opacity: 1;
+  transition: all .3s ease;
+  transform: scale(1);
+  pointer-events: auto;
+  li {
+    transition: all .3s ease .3s;
+    @for $i from 1 through $menu_items {
+      &:nth-child(#{$i}) {
+        transform: rotate(#{($i * $rotation + $offset)}deg) skew(60deg);
+      }
+    }
+  }
+}

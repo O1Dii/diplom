@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Genomic Prediction EPGT analysis Report Schema",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "description": "When used with a Plate run this is the RUN ID, when used with a case run this is the Case ID",
+      "type": "string"
+    },
+    "runid": {
+      "description": "When used with a Plate run this is empty, when used with a case run this is the Plate ID or Run ID (same thing) ",
+      "type": "string"
+    },
+    "analysis_time": {
+      "description": "This is a human readable version of the timestamp. Not used in portal",
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "number"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "analysis_version": {
+      "type": "string"
+    },
+    "fingerprint": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "minItems": 6,
+        "items": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      }
+    },
+    "positive_control": {
+      "type": "string"
+    },
+    "heatmap": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        }
+      }
+    },
+    "samples": {
+      "type": "object",
+      "patternProperties": {
+        ".*.CEL$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "karyotype": {
+              "type": "string"
+            },
+            "segmental": {
+              "type": "string"
+            },
+            "is_triploid": {
+              "type": "boolean"
+            },
+            "is_contaminated": {
+              "type": "boolean"
+            },
+            "DQC": {
+              "type": "number"
+            },
+            "callRate": {
+              "type": "number"
+            },
+            "MAD": {
+              "type": "number"
+            },
+            "UPD": {
+              "type": "string"
+            },
+            "barchart": {
+              "type": "string"
+            },
+            "triploidy_chart": {
+              "type": "string"
+            },
+            "violin_plot": {
+              "type": "string"
+            },
+            "chromosomes": {
+              "type": "array",
+              "minItems": 23,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "chromosome_visual": {
+                    "type": "string"
+                  },
+                  "chromosome_segmental": {
+                    "type": "boolean"
+                  },
+                  "chromosome_UPD": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

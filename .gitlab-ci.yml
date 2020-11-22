@@ -1,0 +1,105 @@
+default:
+  tags:
+    - genomic-shared
+
+stages:
+  - build
+  - test
+  - db_migrate
+  - push
+  - deploy
+
+build:
+  stage: build
+  script: docker build
+    --build-arg NODE_ENV="production"
+    . --file build/app/Dockerfile
+    --tag "${DOCKER_REPO}:${CI_COMMIT_REF_NAME}"
+
+pytest:
+  stage: test
+  variables:
+    GIT_STRATEGY: none
+  script: docker run -e RUN_MODE=test "${DOCKER_REPO}:${CI_COMMIT_REF_NAME}"
+  coverage: '/TOTAL.*\s+(\d+%)$/'
+
+Migrate Staging DB:
+  stage: db_migrate
+  allow_failure: false
+  variables:
+    GIT_STRATEGY: none
+  only:
+    - staging
+  script: docker run
+    -e RUN_MODE=db_migrate
+    -e DATABASE_URL="${STAGING_DATABASE_URL}"
+    "${DOCKER_REPO}:${CI_COMMIT_REF_NAME}"
+
+Migrate Production DB:
+  stage: db_migrate
+  allow_failure: false
+  variables:
+    GIT_STRATEGY: none
+  only:
+    - master
+  script: docker run
+    -e RUN_MODE=db_migrate
+    -e DATABASE_URL="${PRODUCTION_DATABASE_URL}"
+    "${DOCKER_REPO}:${CI_COMMIT_REF_NAME}"
+
+Docker Push:
+  stage: push
+  when: on_success
+  allow_failure: false
+  variables:
+    GIT_STRATEGY: none
+  before_script:
+    - aws ecr get-login-password | docker login --username AWS --password-stdin ${DOCKER_REPO}
+  script:
+    - docker push "${DOCKER_REPO}:${CI_COMMIT_REF_NAME}"
+  only:
+    - master
+    - staging
+
+Deploy Staging:
+  stage: deploy
+  when: on_success
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - aws ecs update-service --force-new-deployment --service lab-portal-staging --cluster lab-portal
+  environment:
+    name: staging
+    url: https://lab-portal-staging.genomicprediction.com
+  only:
+    - staging
+
+Deploy Production:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - aws ecs update-service --force-new-deployment --service lab-portal-production --cluster lab-portal
+  environment:
+    name: production
+    url: https://lab-portal.genomicprediction.com
+  when: on_success
+  allow_failure: false
+  only:
+    - master
+
+Send Email:
+  stage: deploy
+  when: on_success
+  only:
+    - staging
+    - master
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - echo "$EMAIL_SUCCESS_MESSAGE" > message.json
+    - echo "$EMAIL_DESTINATION" > destination.json
+    - sed -i s/CI_COMMIT_REF_NAME/${CI_COMMIT_REF_NAME}/g message.json
+    - sed -i s@CI_PIPELINE_URL@${CI_PIPELINE_URL}@g message.json
+    - aws ses send-email --from noreply@genomicprediction.com --destination file://destination.json --message file://message.json
+
