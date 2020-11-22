@@ -15,8 +15,4 @@ select[intent="danger"] {
   border: 1px solid red;
 }
 
-:focus {
-  outline-color: $color-primary-1;
-}
-
 @import "components";

@@ -1,1 +1,9 @@
 $lab-portal-max-width: 1920px;
+
+$menu_items: 12;
+$rotation: 360/$menu_items; //360deg / total number of items
+$offset: 15; //offset it slightly to line up the keys
+
+$font_0: Lato;
+$font_1: Arial;
+$font_2: sans-serif;
