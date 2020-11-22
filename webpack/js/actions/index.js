@@ -1,1 +1,1 @@
-export * from "./AppsList";
+export * from "./ChordsQueue";

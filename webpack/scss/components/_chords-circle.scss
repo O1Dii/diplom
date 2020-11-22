@@ -34,16 +34,6 @@ body {
     transform: rotate(76deg) skew(60deg);
     transform-origin: 100% 100%;
     pointer-events: none;
-    &.flat {
-      button:after {
-        content: "\266D";
-      }
-    }
-    &.sharp {
-      button:after {
-        content: "\266F";
-      }
-    }
     button {
       position: relative;
       display: block;
@@ -57,6 +47,10 @@ body {
     }
     button:nth-child(2) {
       height: 20%;
+    }
+    button.recommended:not(:disabled) {
+      background-color: white;
+      animation: recommended 2s infinite alternate;
     }
     span {
       position: absolute;

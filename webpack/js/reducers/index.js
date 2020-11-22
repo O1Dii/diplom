@@ -1,2 +1,2 @@
-export * from "./AppsDrawer";
+export * from "./ChordsQueue";
 

@@ -3,10 +3,10 @@ import ReactDOM from "react-dom";
 import "../scss/lab-portal.scss"
 import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import {superLazy} from "./components/superLazy";
-import {LoggedInContextProvider} from "./components/context";
+import {ChordsQueueContextProvider} from "./components/context";
 import Placeholder from "./components/presentation/Placeholder";
 
-const Login = superLazy(() => import('./components/container/Login'));
+const MainPage = superLazy(() => import('./components/container/MainPage'));
 
 ReactDOM.render(
     <Router>
@@ -16,9 +16,9 @@ ReactDOM.render(
                     <Redirect to={"/"}/>
                 </Route>
                 <Route exact path="/">
-                    <LoggedInContextProvider>
-                        <Login/>
-                    </LoggedInContextProvider>
+                    <ChordsQueueContextProvider>
+                        <MainPage/>
+                    </ChordsQueueContextProvider>
                 </Route>
             </Switch>
         </Suspense>

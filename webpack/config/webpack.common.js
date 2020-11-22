@@ -36,6 +36,10 @@ module.exports = {
                     'sass-loader'
                 ],
             },
+            {
+                test: /\.mp3$/,
+                loader: 'file-loader'
+            }
         ]
     },
     plugins: [

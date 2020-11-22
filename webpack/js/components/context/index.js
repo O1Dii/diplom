@@ -1,1 +1,1 @@
-export * from "./LoggedInContextProvider";
+export * from "./ChordsQueueContextProvider";
