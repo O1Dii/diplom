@@ -1,0 +1,279 @@
+.sequencer-container {
+  height: 500px;
+  overflow-y: auto;
+  margin-bottom: 50px;
+}
+
+.notes {
+  position: relative;
+  overflow: scroll;
+}
+
+.note {
+  position: absolute;
+  height: calc(var(--note-slot-width) - 4px);
+  background-color: darkseagreen;
+  border: 2px solid #000;
+  border-radius: 3px;
+  display: table;
+}
+
+.note span {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.note-slot {
+  box-shadow: inset 0 0 10px;
+  z-index: -1;
+}
+
+.note-slots {
+  position: relative;
+  display: block;
+  left: calc(var(--piano-keys-width) + 16px);
+  margin-left: 6px;
+  overflow-x: scroll;
+  width: calc(100% - var(--piano-keys-width) - 16px);
+}
+
+.dark {
+  background-color: #666;
+  height: var(--note-slot-width);
+}
+
+.dark .note {
+  background-color: rgb(103, 148, 103);
+}
+
+.light {
+  background-color: #888;
+  height: calc(var(--note-slot-width) + 1px);
+}
+
+#time-bar {
+  position: relative;
+  height: 80px;
+  background-color: #666;
+}
+
+#time-bar button, #time-bar .time {
+  position: absolute;
+  left: 0;
+  height: 33%;
+  top: 0;
+  z-index: 3;
+}
+
+#time-bar button {
+  top: 66%;
+  width: 2.45em;
+}
+
+#time-bar button:first-of-type {
+  top: 33%;
+}
+
+.second {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+  height: 100%;
+  border-right: 2px solid #000;
+  z-index: 0;
+}
+
+.play-head {
+  height: 100%;
+  border-right: 2px solid rgb(255, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+}
+
+/* CSS Piano */
+
+#nav-piano * {
+  margin: 0;
+  padding: 0;
+}
+
+#nav-piano p {
+  margin: 0 0 1.5em
+}
+
+#nav-piano *,
+#nav-piano *:before,
+#nav-piano *:after {
+  box-sizing: border-box
+}
+
+/*
+Pure CSS3 Vertical Piano Menu by Taufik Nurrohman (http://gplus.to/tovic)
+Licence: Attribution
+*/
+
+#nav-piano {
+  display: block;
+  background-color: #222;
+  background-image: linear-gradient(60deg, #111, #333, #111, #3c3c3c, #333 70%);
+  width: 25%;
+  padding: 0 15px 80px 0;
+  border-right: 1px solid #111;
+  border-bottom: 1px solid #111;
+  border-radius: 0 0 7px 0;
+  box-shadow: 2px 0 0 #666, 3px 0 0 #555, 4px 0 0 #444, 6px 0 6px black, inset -1px 0 1px rgba(255, 255, 255, .5), inset -4px 0 5px black, -5px 0 10px black, -2px 10px 14px black;;
+  top: 0;
+  left: 0;
+}
+
+#nav-piano ul,
+#nav-piano li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+}
+
+#nav-piano .wide, #nav-piano .wide .tut {
+  height: calc(2 * var(--note-slot-width) + 1px);
+}
+
+#nav-piano li:first-child span,
+#nav-piano li:first-child span div {
+  height: var(--note-slot-width);
+}
+
+#nav-piano .wide:last-child, #nav-piano .wide:last-child .tut {
+  height: calc(var(--note-slot-width) * 3 / 2 + 1px);
+}
+
+#nav-piano ul {
+  box-shadow: 0 2px 5px black
+}
+
+#nav-piano span,
+#nav-piano .tut {
+  display: block;
+  height: calc(var(--note-slot-width) * 3 / 2 + 1px);
+  padding: 0 18px 0 0;
+  background-color: #fafafa;
+  background-image: linear-gradient(-30deg, #f5f5f5, white);
+  border: 1px solid #ccc;
+  box-shadow: inset 1px 0 0 white, inset -1px 0 0 white, inset 0 0 0 1px white, 4px 0 3px rgba(0, 0, 0, .4);
+  border-radius: 0 3px 3px 0;
+  text-align: right;
+  text-decoration: none;
+  color: #666;
+  text-shadow: 0 1px 0 white;
+  font: italic normal 14px/37px Georgia, "URW Bookman L", Serif;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+#nav-piano span:focus,
+#nav-piano span:active {
+  outline: none
+}
+
+#nav-piano .black-tut span,
+#nav-piano .black-tut .tut {
+  width: 58%;
+  z-index: 2;
+  background-color: #111;
+  background-image: linear-gradient(-20deg, #333, black, #333);
+  height: var(--note-slot-width);
+  line-height: 24px;
+  font-size: 11px;
+  text-shadow: 0 -1px 0 black;
+  color: #555;
+  margin-top: calc(-1 / 2 * var(--note-slot-width));
+  margin-bottom: calc(-1 / 2 * var(--note-slot-width));
+  border-width: 2px 7px 2px 1px;
+  border-style: solid;
+  border-color: #666 #222 #111 #555;
+  box-shadow: inset -1px 0 2px rgba(255, 255, 255, .4), 2px 0 3px rgba(0, 0, 0, .4);
+}
+
+#nav-piano span:active {
+  background-color: #f5f5f5;
+  margin-right: 1px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, .4);
+}
+
+#nav-piano .black-tut span:active {
+  border-right-width: 2px;
+  left: -2px;
+  box-shadow: inset -1px 0 1px rgba(255, 255, 255, .4), 1px 0 0 rgba(0, 0, 0, .8), 0 0 2px rgba(0, 0, 0, .4), 1px 0 0 black;
+}
+
+#nav-piano li ul {
+  position: absolute;
+  top: -10px;
+  left: 100%;
+  margin-left: -10px;
+  width: 200px;
+  background-color: #ffa;
+  padding: 10px 0;
+  z-index: 999;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  transition: all .2s ease-out;
+}
+
+#nav-piano li ul a,
+#nav-piano li ul a:active {
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  height: 24px;
+  line-height: 24px;
+  color: #8b8b55;
+  text-shadow: none;
+  margin-right: 0;
+}
+
+/* Depth Shadow */
+#nav-piano > ul > li > a:active:before,
+#nav-piano > ul > li > a:active:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 15px;
+  background-color: rgba(0, 0, 0, .1);
+  transform: rotate(1deg) translateY(-15px);
+}
+
+#nav-piano > ul > li > a:active:after {
+  top: auto;
+  bottom: 0;
+  transform: rotate(-1deg) translateY(14px);
+}
+
+#nav-piano li ul a:hover {
+  background-color: #fc6
+}
+
+#nav-piano li:hover ul {
+  visibility: visible;
+  opacity: 1;
+  margin-left: -5px;
+}
+
+#nav-piano li .tut div {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+
+#nav-piano .tut div i {
+  display: table-cell;
+  vertical-align: middle;
+}

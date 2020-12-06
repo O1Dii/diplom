@@ -1,5 +1,4 @@
 * {
-  position: relative;
   list-style: none;
 }
 
@@ -10,6 +9,10 @@ html {
 body {
   height: 100%;
   background: $helper-color-1;
+}
+
+#keys {
+  position: relative;
 }
 
 .cn-wrapper {

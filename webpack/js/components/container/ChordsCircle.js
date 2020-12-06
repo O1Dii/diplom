@@ -37,8 +37,8 @@ export default function ChordsCircle() {
                         {combinedChords.map(item => (
                             <li key={item.maj} className="key">
                                 <span>
-                                    <button disabled={queue_full} className={recommendedMaj.includes(item.maj) && 'recommended'} onClick={() => handleChordClick(true, item.maj)}>{item.maj}</button>
-                                    <button disabled={queue_full} className={recommendedMin.includes(item.min) && 'recommended'} onClick={() => handleChordClick(false, item.min)}>{item.min}m</button>
+                                    <button disabled={queue_full} className={recommendedMaj.includes(item.maj) ? 'recommended' : ''} onClick={() => handleChordClick(true, item.maj)}>{item.maj}</button>
+                                    <button disabled={queue_full} className={recommendedMin.includes(item.min) ? 'recommended' : ''} onClick={() => handleChordClick(false, item.min)}>{item.min}m</button>
                                 </span>
                             </li>
                         ))}

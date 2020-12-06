@@ -1,6 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const paths = require('./paths');
-const inliner = require("sass-inline-svg");
 
 
 module.exports = {
@@ -13,6 +12,9 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx', '.tsx', '.ts']
     },
+    node: {
+        fs: 'empty'
+    },
     module: {
         rules: [
             {
@@ -22,8 +24,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: 'style-loader!css-loader',
-                include: /flexboxgrid/
+                loader: 'style-loader!css-loader'
             },
             {
                 test: /\.s[ac]ss$/i,

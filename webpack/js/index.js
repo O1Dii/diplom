@@ -16,9 +16,7 @@ ReactDOM.render(
                     <Redirect to={"/"}/>
                 </Route>
                 <Route exact path="/">
-                    <ChordsQueueContextProvider>
-                        <MainPage/>
-                    </ChordsQueueContextProvider>
+                    <MainPage/>
                 </Route>
             </Switch>
         </Suspense>
