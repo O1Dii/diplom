@@ -1,0 +1,16 @@
+.export-buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  &__higher-container {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  &__lower-container {
+    display: flex;
+    justify-content: center;
+  }
+}

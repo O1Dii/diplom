@@ -1,7 +1,13 @@
+:root {
+  --note-slot-width: 26px;
+  --piano-keys-width: 340px;
+}
+
 .sequencer-container {
   height: 500px;
   overflow-y: auto;
-  margin-bottom: 50px;
+  margin: 50px 0;
+  position: relative;
 }
 
 .notes {
@@ -26,15 +32,16 @@
 .note-slot {
   box-shadow: inset 0 0 10px;
   z-index: -1;
+  min-width: 100%;
 }
 
 .note-slots {
-  position: relative;
+  position: absolute;
   display: block;
-  left: calc(var(--piano-keys-width) + 16px);
+  left: 250px;
+  min-width: 75%;
   margin-left: 6px;
   overflow-x: scroll;
-  width: calc(100% - var(--piano-keys-width) - 16px);
 }
 
 .dark {
@@ -117,10 +124,11 @@ Licence: Attribution
 
 #nav-piano {
   display: block;
+  position: absolute;
   background-color: #222;
   background-image: linear-gradient(60deg, #111, #333, #111, #3c3c3c, #333 70%);
   width: 25%;
-  padding: 0 15px 80px 0;
+  padding: 0 15px 0 0;
   border-right: 1px solid #111;
   border-bottom: 1px solid #111;
   border-radius: 0 0 7px 0;
@@ -151,7 +159,7 @@ Licence: Attribution
 }
 
 #nav-piano ul {
-  box-shadow: 0 2px 5px black
+  box-shadow: 0 2px 5px black;
 }
 
 #nav-piano span,

@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import ChordsCircle from "./ChordsCircle";
 import ChordsQueue from "./ChordsQueue";
 import PianoKeyboard from "./PianoKeyboard";
 import SequencerContainer from "./SequencerContainer";
 import useCurrentWidth from "../../utils/useCurrentWidth";
-import {NotesContextProvider} from "../context/NotesContextProvider";
-import {ChordsQueueContextProvider} from "../context";
-import {Route} from "react-router-dom";
+import {ChordsQueueContextProvider, NotesContextProvider} from "../context";
+import {CombinedContextProvider} from "../context/CombinedContextProvider";
+import ExportButtons from "./ExportButtons";
 
 export default function MainPage() {
     const getWidth = () => {
@@ -15,22 +15,25 @@ export default function MainPage() {
             || document.body.clientWidth;
     }
 
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
     const width = useCurrentWidth(getWidth);
 
     return (
         <div className="main-page">
-            <div className="main-page__left-section">
-                <ChordsQueueContextProvider>
-                    <ChordsCircle/>
-                    <ChordsQueue/>
-                </ChordsQueueContextProvider>
-            </div>
-            <div className="main-page__right-section">
+            <ChordsQueueContextProvider>
                 <NotesContextProvider>
-                    <PianoKeyboard width={width * 0.7}/>
-                    <SequencerContainer width={width * 0.7}/>
+                    <div className="main-page__left-section">
+                        <ChordsCircle audioContext={audioContext}/>
+                        <ChordsQueue/>
+                    </div>
+                    <div className="main-page__right-section">
+                        <PianoKeyboard width={width * 0.7} audioContext={audioContext}/>
+                        <SequencerContainer width={width * 0.7}/>
+                    </div>
+                    <ExportButtons />
                 </NotesContextProvider>
-            </div>
+            </ChordsQueueContextProvider>
         </div>
     );
 }

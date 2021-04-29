@@ -1,15 +1,18 @@
-import React, {useState, useContext} from "react";
+import React, {useContext, useState} from "react";
 import {KeyboardShortcuts, MidiNumbers} from "react-piano";
 import 'react-piano/dist/styles.css';
 import SoundfontProvider from "./SoundFontProvider";
 import {soundfontHostname} from "../../constants";
 import PianoWithRecording from "./PianoWithRecording";
-import {NotesContext} from "../context/NotesContextProvider";
 import _ from 'lodash';
-import {setMode, setCurrentEvents, resetNotes} from "../../actions/Notes";
+import {resetNotes, setCurrentEvents, setMode} from "../../actions/Notes";
+import {getRecordingEndTime} from '../../utils/recording';
+import {ChordsQueueContext, NotesContext} from "../context";
 
-export default function PianoKeyboard({width}) {
-    const {events, dispatch} = useContext(NotesContext);
+export default function PianoKeyboard({width, audioContext}) {
+    const {events, mode, dispatch} = useContext(NotesContext);
+    const {current_chords, dispatchChords} = useContext(ChordsQueueContext);
+    const queue_full = current_chords.length === 4;
     const [noteRange, setNoteRange] = useState({
         first: MidiNumbers.fromNote('c3'),
         last: MidiNumbers.fromNote('f4'),
@@ -20,18 +23,9 @@ export default function PianoKeyboard({width}) {
         keyboardConfig: KeyboardShortcuts.HOME_ROW,
     });
 
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const recommendations = ['C', 'D', 'Eb', 'E', 'F', 'G', 'Ab', 'A', 'Bb', 'B'];
+
     const scheduledEvents = [];
-
-    const getRecordingEndTime = () => {
-        if (events.length === 0) {
-            return 0;
-        }
-
-        return Math.max(
-            ...events.map(event => event.time + event.duration),
-        );
-    };
 
     const onClickPlay = () => {
         const startAndEndTimes = _.uniq(
@@ -42,12 +36,13 @@ export default function PianoKeyboard({width}) {
         );
 
         startAndEndTimes.forEach(time => {
+            dispatch(setMode('PLAYING'));
+
             scheduledEvents.push(
                 setTimeout(() => {
                     const currentEvents = events.filter(event => {
                         return event.time <= time && event.time + event.duration > time;
                     });
-                    dispatch(setMode('PLAYING'));
                     dispatch(setCurrentEvents(currentEvents));
                 }, time * 1000),
             );
@@ -55,7 +50,7 @@ export default function PianoKeyboard({width}) {
 
         setTimeout(() => {
             onClickStop();
-        }, getRecordingEndTime() * 1000);
+        }, getRecordingEndTime(events) * 1000);
     };
 
     const onClickStop = () => {
@@ -71,6 +66,8 @@ export default function PianoKeyboard({width}) {
         dispatch(resetNotes());
     };
 
+    console.log(queue_full);
+
     return (
         <>
             <SoundfontProvider
@@ -84,12 +81,16 @@ export default function PianoKeyboard({width}) {
                         width={width - 100}
                         playNote={playNote}
                         stopNote={stopNote}
-                        disabled={isLoading}
+                        recommendations={recommendations}
+                        disabled={isLoading || !queue_full}
                         keyboardShortcuts={keyboardShortcuts}
                     />
                 )}/>
-            <button onClick={onClickPlay}>Play</button>
-            <button onClick={onClickClear}>Clear</button>
+            {mode === 'RECORDING' ?
+                <button className="button" onClick={onClickPlay}>Play</button> :
+                <button className="button" onClick={onClickStop}>Stop</button>
+            }
+            <button className="button" disabled={!queue_full} onClick={onClickClear}>Clear</button>
         </>
     );
 }

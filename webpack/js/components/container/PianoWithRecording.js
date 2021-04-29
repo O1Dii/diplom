@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {Piano} from 'react-piano';
-import {NotesContext} from "../context/NotesContextProvider";
+import {NotesContext} from "../context";
 import {setCurrentTime, setEvents} from "../../actions/Notes";
 
 const DURATION_UNIT = 0.2;
@@ -44,12 +44,14 @@ const PianoWithRecording = ({playNote, stopNote, recording, setRecording, setNot
 
     return (
         <div className="piano-keyboard">
-            <button onClick={() => setNoteRange({...pianoProps.noteRange, first: pianoProps.noteRange.first - 1})}
-                    className="piano-keyboard__left-minus">+1
-            </button>
-            <button onClick={() => setNoteRange({...pianoProps.noteRange, first: pianoProps.noteRange.first + 1})}
-                    className="piano-keyboard__left-plus">-1
-            </button>
+            <div className="piano-keyboard-buttons-container">
+                <button onClick={() => setNoteRange({...pianoProps.noteRange, first: pianoProps.noteRange.first - 1})}
+                        className="button">+1
+                </button>
+                <button onClick={() => setNoteRange({...pianoProps.noteRange, first: pianoProps.noteRange.first + 1})}
+                        className="button">-1
+                </button>
+            </div>
             <Piano
                 playNote={playNote}
                 stopNote={stopNote}
@@ -58,12 +60,14 @@ const PianoWithRecording = ({playNote, stopNote, recording, setRecording, setNot
                 activeNotes={activeNotes}
                 {...pianoProps}
             />
-            <button onClick={() => setNoteRange({...pianoProps.noteRange, last: pianoProps.noteRange.last - 1})}
-                    className="piano-keyboard__right-minus">-1
-            </button>
-            <button onClick={() => setNoteRange({...pianoProps.noteRange, last: pianoProps.noteRange.last + 1})}
-                    className="piano-keyboard__right-plus">+1
-            </button>
+            <div className="piano-keyboard-buttons-container">
+                <button onClick={() => setNoteRange({...pianoProps.noteRange, last: pianoProps.noteRange.last - 1})}
+                        className="button">-1
+                </button>
+                <button onClick={() => setNoteRange({...pianoProps.noteRange, last: pianoProps.noteRange.last + 1})}
+                        className="button">+1
+                </button>
+            </div>
         </div>
     );
 }

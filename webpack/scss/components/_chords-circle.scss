@@ -45,11 +45,12 @@ body {
       font-size: .6em;
       font-weight: 700;
     }
-    button:nth-child(1) {
+    div {
       height: 10%;
-    }
-    button:nth-child(2) {
-      height: 20%;
+
+      button {
+        height: 100%;
+      }
     }
     button.recommended:not(:disabled) {
       background-color: white;
@@ -87,5 +88,15 @@ body {
         transform: rotate(#{($i * $rotation + $offset)}deg) skew(60deg);
       }
     }
+  }
+}
+
+.circle-item {
+  display: flex;
+  width: 30%;
+  margin: auto;
+
+  &__min-button {
+    height: 20%;
   }
 }

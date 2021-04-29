@@ -15,4 +15,11 @@ select[intent="danger"] {
   border: 1px solid red;
 }
 
+.button {
+  padding: 10px;
+  background-color: $helper-color-2;
+  border: none;
+  margin: 5px;
+}
+
 @import "components";

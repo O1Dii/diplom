@@ -3,8 +3,8 @@
   width: 100%;
 
   .chords-queue {
-    width: 90%;
-    height: 100px;
+    width: 100%;
+    height: 150px;
     padding: 10px;
     display: flex;
     background-color: $secondary-color;
@@ -18,10 +18,11 @@
     }
 
     &__item {
-      height: 50px;
-      width: 50px;
+      height: 80px;
+      width: 80px;
       background-color: $accent-color;
       position: relative;
+      display:flex;
     }
 
     &__delete-button {
@@ -38,10 +39,27 @@
 
     &__chord-name {
       display: flex;
-      width: 100%;
       height: 100%;
       justify-content: center;
       align-items: center;
+    }
+
+    &__transposition-container {
+      background-color: $accent-color;
+      align-items: center;
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: space-evenly;
+
+      p {
+        margin: 0;
+      }
+
+      button {
+        width: 80%;
+        background-color: $secondary-color;
+        padding: 5px;
+      }
     }
 
     &__play-all-button {
